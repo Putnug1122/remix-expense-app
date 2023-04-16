@@ -1,4 +1,4 @@
-export default function ExpenseAdd() {
+export default function ExpenseAddPage() {
   return (
     <div>
       <h1>Add Expense</h1>
