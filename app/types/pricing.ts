@@ -1,6 +1,9 @@
+import type { IconType } from "react-icons";
+
 export interface Pricing {
+  id: string;
   title: string;
-  price: number;
+  price: string;
   perks: string[];
-  icon: string;
+  icon: IconType;
 }

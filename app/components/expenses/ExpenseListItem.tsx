@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 import type { Expense } from "~/types/exprense";
 
 function ExpenseListItem({ id, title, amount }: Omit<Expense, "date">) {
@@ -13,7 +14,7 @@ function ExpenseListItem({ id, title, amount }: Omit<Expense, "date">) {
       </div>
       <menu className="expense-actions">
         <button onClick={deleteExpenseItemHandler}>Delete</button>
-        <a href="tbd">Edit</a>
+        <Link to={id}>Edit</Link>
       </menu>
     </article>
   );
