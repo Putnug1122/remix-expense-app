@@ -2,9 +2,9 @@ function isValidTitle(value: string) {
   return value && value.trim().length > 0 && value.trim().length <= 30;
 }
 
-function isValidAmount(value: string) {
-  const amount = parseFloat(value);
-  return !isNaN(amount) && amount > 0;
+function isValidAmount(value: number) {
+  // const amount = parseFloat(value);
+  return !isNaN(value) && value > 0;
 }
 
 function isValidDate(value: string) {
@@ -13,7 +13,7 @@ function isValidDate(value: string) {
 
 export function validateExpenseInput(input: {
   title: string;
-  amount: string;
+  amount: number;
   date: string;
 }) {
   let validationErrors: { [key: string]: string } = {};

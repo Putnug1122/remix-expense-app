@@ -22,21 +22,17 @@ export default function ExpenseAddPage() {
 export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
 
-  try {
-    validateExpenseInput({
-      title: formData.get("title") as string,
-      amount: formData.get("amount") as string,
-      date: formData.get("date") as string,
-    });
-  } catch (error) {
-    return error;
-  }
-
   const expense = {
     title: formData.get("title") as string,
     amount: formData.get("amount") as unknown as number,
     date: formData.get("date") as string,
   };
+  try {
+    validateExpenseInput(expense);
+  } catch (error) {
+    return error;
+  }
+
   await addExpense(expense);
   return redirect("/expenses");
 }
