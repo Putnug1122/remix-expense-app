@@ -37,7 +37,11 @@ function ExpenseForm() {
       };
 
   return (
-    <Form method="post" className="form" id="expense-form">
+    <Form
+      method={expenseData ? "PATCH" : "POST"}
+      className="form"
+      id="expense-form"
+    >
       <p>
         <label htmlFor="title">Expense Title</label>
         <input
