@@ -2,12 +2,11 @@ import {
   Form,
   Link,
   useActionData,
-  useLoaderData,
   useMatches,
   useNavigation,
   useParams,
 } from "@remix-run/react";
-import { Expense } from "~/types/exprense";
+import type { Expense } from "~/types/exprense";
 
 function ExpenseForm() {
   const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
@@ -16,7 +15,6 @@ function ExpenseForm() {
 
   const params = useParams();
   const matches = useMatches();
-  // console.log(matches);
   const expenses: Expense[] = matches.find(
     (match) => match.id === "routes/_app.expenses"
   )?.data;
