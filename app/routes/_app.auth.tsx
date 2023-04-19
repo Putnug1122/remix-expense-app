@@ -1,5 +1,6 @@
-import { json } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import AuthForm from "~/components/auth/AuthForm";
+import { signup } from "~/data/auth.server";
 import { validateCredentials } from "~/data/validation.server";
 import authStyles from "~/styles/auth.css";
 
@@ -24,8 +25,15 @@ export async function action({ request }: { request: Request }) {
   } catch (error) {
     return error;
   }
-  if (authMode === "login") {
-  } else {
+
+  try {
+    if (authMode === "login") {
+    } else {
+      await signup({ email, password });
+      return redirect("/expenses");
+    }
+  } catch (error) {
+    return error;
   }
 }
 export function links() {

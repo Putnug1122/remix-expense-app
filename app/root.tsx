@@ -52,7 +52,7 @@ export function ErrorBoundary() {
     return (
       <Document title={`${error.status}`}>
         <main>
-          <Error title={`${error.statusText}`}>
+          <Error title={`${error.status}`}>
             <p>
               {error.data?.message ||
                 "Something went wrong. Please try again later."}
