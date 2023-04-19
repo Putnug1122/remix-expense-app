@@ -7,7 +7,6 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useCatch,
   useRouteError,
 } from "@remix-run/react";
 import sharedStyles from "~/styles/shared.css";
