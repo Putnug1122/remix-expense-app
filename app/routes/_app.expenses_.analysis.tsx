@@ -7,6 +7,7 @@ import {
 import Chart from "~/components/expenses/Chart";
 import ExpenseStatistics from "~/components/expenses/ExpenseStatistics";
 import Error from "~/components/util/Error";
+import { requiredUserSession } from "~/data/auth.server";
 import { getExpenses } from "~/data/expenses.server";
 import type { Expense } from "~/types/exprense";
 
@@ -35,7 +36,8 @@ export default function ExpenseAnalysisPage() {
   );
 }
 
-export async function loader() {
+export async function loader({ request }: { request: Request }) {
+  await requiredUserSession(request);
   const expenses = await getExpenses();
 
   if (!expenses || expenses.length === 0) {

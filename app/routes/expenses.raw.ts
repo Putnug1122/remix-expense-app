@@ -1,4 +1,7 @@
-export function loader() {
+import { requiredUserSession } from "~/data/auth.server";
+
+export async function loader({ request }: { request: Request }) {
+  await requiredUserSession(request);
   return [
     {
       id: 1,
