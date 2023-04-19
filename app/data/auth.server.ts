@@ -108,4 +108,6 @@ export async function requiredUserSession(request: Request) {
   if (!userId) {
     throw redirect("/auth?mode=login");
   }
+
+  return userId;
 }
