@@ -1,7 +1,6 @@
 import { json } from "@remix-run/node";
 import {
   isRouteErrorResponse,
-  useCatch,
   useLoaderData,
   useRouteError,
 } from "@remix-run/react";

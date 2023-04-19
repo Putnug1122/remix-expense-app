@@ -6,7 +6,9 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
   useCatch,
+  useRouteError,
 } from "@remix-run/react";
 import sharedStyles from "~/styles/shared.css";
 import Error from "~/components/util/Error";
@@ -43,16 +45,37 @@ export default function App() {
   );
 }
 
-export function CatchBoundary() {
-  const caught = useCatch();
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <Document title={`${error.status}`}>
+        <main>
+          <Error title={`${error.statusText}`}>
+            <p>
+              {error.data?.message ||
+                "Something went wrong. Please try again later."}
+            </p>
+            <p>
+              Back to <Link to="/">safety</Link>
+            </p>
+          </Error>
+        </main>
+      </Document>
+    );
+  }
+
+  let errorMessage = "Unknown error";
+  if (isDefinitelyAnError(error)) {
+    errorMessage = error.message;
+  }
+
   return (
-    <Document title={caught.statusText}>
+    <Document title="Error">
       <main>
-        <Error title={caught.statusText}>
-          <p>
-            {caught.data?.message ||
-              "Something went wrong. Please try again later."}
-          </p>
+        <Error title="Error">
+          <p>{errorMessage}</p>
           <p>
             Back to <Link to="/">safety</Link>
           </p>
@@ -62,21 +85,8 @@ export function CatchBoundary() {
   );
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  return (
-    <Document title="An error occurred">
-      <main>
-        <Error title="An error occurred">
-          <p>
-            {error.message || "Something went wrong. Please try again later."}
-          </p>
-          <p>
-            Back to <Link to="/">safety</Link>
-          </p>
-        </Error>
-      </main>
-    </Document>
-  );
+function isDefinitelyAnError(error: unknown): error is Error {
+  return error instanceof Error;
 }
 
 export function links() {

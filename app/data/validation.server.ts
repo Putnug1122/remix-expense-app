@@ -36,3 +36,31 @@ export function validateExpenseInput(input: {
     throw validationErrors;
   }
 }
+
+const emailExpression: RegExp =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$/;
+
+export function isValidEmail(value: string) {
+  return value && emailExpression.test(value);
+}
+
+function isValidPassword(value: string) {
+  return value && value.trim().length > 5;
+}
+
+export function validateCredentials(email: string, password: string) {
+  let validationErrors: { [key: string]: string } = {};
+
+  if (!isValidEmail(email)) {
+    validationErrors.email = "Invalid email address.";
+  }
+
+  if (!isValidPassword(password)) {
+    validationErrors.password =
+      "Invalid password. Must be at least 6 characters.";
+  }
+
+  if (Object.keys(validationErrors).length > 0) {
+    throw validationErrors;
+  }
+}
