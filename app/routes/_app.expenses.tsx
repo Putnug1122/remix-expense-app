@@ -6,7 +6,7 @@ import type { Expense } from "~/types/exprense";
 
 export default function ExpenseLayout() {
   const expenses = useLoaderData<Expense[]>();
-
+  const hasExpenses = expenses.length > 0;
   return (
     <>
       <Outlet />
@@ -21,7 +21,15 @@ export default function ExpenseLayout() {
             <span>Load Raw Data</span>
           </a>
         </section>
-        <ExpensesList expenses={expenses} />
+        {hasExpenses && <ExpensesList expenses={expenses} />}
+        {!hasExpenses && (
+          <section id="no-expenses">
+            <h1>No expenses found</h1>
+            <p>
+              Start <Link to="add">adding</Link> some expenses!
+            </p>
+          </section>
+        )}
       </main>
     </>
   );

@@ -11,6 +11,7 @@ import type { Expense } from "~/types/exprense";
 function ExpenseForm() {
   const today = new Date().toISOString().slice(0, 10); // yields something like 2023-09-10
 
+  const navigation = useNavigation();
   const validationError = useActionData<{ [key: string]: string }>();
 
   const params = useParams();
@@ -21,7 +22,14 @@ function ExpenseForm() {
 
   const expenseData = expenses.find((exp) => exp.id === params.id);
 
-  const navigation = useNavigation();
+  if (params.id && !expenseData) {
+    return (
+      <div>
+        <h1>Expense not found</h1>
+        <Link to="..">Go back</Link>
+      </div>
+    );
+  }
   const isSubmitting = navigation.state !== "idle";
 
   const defaultValue = expenseData
