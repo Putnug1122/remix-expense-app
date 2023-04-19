@@ -1,5 +1,8 @@
+import { useLoaderData } from "@remix-run/react";
 import Chart from "~/components/expenses/Chart";
 import ExpenseStatistics from "~/components/expenses/ExpenseStatistics";
+import { getExpenses } from "~/data/expenses.server";
+import { Expense } from "~/types/exprense";
 
 const dummyData = [
   {
@@ -17,10 +20,15 @@ const dummyData = [
 ];
 
 export default function ExpenseAnalysisPage() {
+  const expenses = useLoaderData<Expense[]>();
   return (
     <main>
       <Chart expenses={dummyData} />
-      <ExpenseStatistics expenses={dummyData} />
+      <ExpenseStatistics expenses={expenses} />
     </main>
   );
+}
+
+export async function loader() {
+  return getExpenses();
 }

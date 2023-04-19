@@ -9,6 +9,17 @@ export default function AuthPage() {
   );
 }
 
+export async function action({ request }: { request: Request }) {
+  const searchParams = new URL(request.url).searchParams;
+  const authMode = searchParams.get("mode") || "login";
+
+  const formData = await request.formData();
+  const credentials = Object.fromEntries(formData);
+
+  if (authMode === "login") {
+  } else {
+  }
+}
 export function links() {
   return [{ rel: "stylesheet", href: authStyles }];
 }
