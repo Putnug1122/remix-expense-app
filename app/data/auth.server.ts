@@ -1,9 +1,4 @@
-import {
-  ActionArgs,
-  createCookieSessionStorage,
-  json,
-  redirect,
-} from "@remix-run/node";
+import { createCookieSessionStorage, json, redirect } from "@remix-run/node";
 import { prisma } from "./database.server";
 import * as argon2 from "argon2";
 
@@ -71,7 +66,7 @@ export async function login({
     throw json({ message: error.message }, { status: 401 });
   }
 
-  const correctPassword = await argon2.verify(password, existingUser.password);
+  const correctPassword = await argon2.verify(existingUser.password, password);
 
   if (!correctPassword) {
     const error = new Error(
