@@ -1,6 +1,5 @@
 import type { Expense } from "~/types/exprense";
 import { prisma } from "./database.server";
-import { json } from "@remix-run/node";
 
 export async function addExpense(
   expenseData: Omit<Expense, "id">,
